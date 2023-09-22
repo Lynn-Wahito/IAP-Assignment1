@@ -27,6 +27,31 @@
       <th>Role<th>
 
     </tr>
+
+    <?php 
+    include '../config/db_connection.php';
+
+    $UsersQuery =" SELECT * FROM users";
+    $UsersResult = mysqli_query($db_connect, $UsersQuery);
+
+    if(mysqli_num_rows($UsersResult) > 0){
+      while($Users = mysqli_fetch_assoc($UsersResult)){
+        $FName = $Users['Fname'];
+        $LName = $Users['Lname'];
+        $Username = $Users['username'];
+        $Email = $Users['email'];
+        $Role = $Users['role'];
+
+        echo "<tr>";
+      echo "<td>{$FName}</td>";
+      echo "<td>{$LName}</td>";
+      echo "<td>{$Username}</td>";
+      echo "<td>{$Email}</td>";
+      echo "<td>{$Role}</td>";
+      }
+    
+  }
+    ?>
     <tr>
       <!-- <td><?php  ?></td> -->
       <!-- <td><?php  ?></td> -->
