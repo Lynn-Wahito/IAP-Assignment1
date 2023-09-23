@@ -20,6 +20,7 @@
   <h1>List Users</h1>
   <table>
     <tr>
+      <th>No</th>
       <th>First Name</th>
       <th>Last Name</th>
       <th>User Name</th>
@@ -34,6 +35,8 @@
     $UsersQuery =" SELECT * FROM users";
     $UsersResult = mysqli_query($db_connect, $UsersQuery);
 
+    $UserNo = 1;
+
     if(mysqli_num_rows($UsersResult) > 0){
       while($Users = mysqli_fetch_assoc($UsersResult)){
         $FName = $Users['Fname'];
@@ -43,11 +46,13 @@
         $Role = $Users['role'];
 
         echo "<tr>";
-      echo "<td>{$FName}</td>";
-      echo "<td>{$LName}</td>";
-      echo "<td>{$Username}</td>";
-      echo "<td>{$Email}</td>";
-      echo "<td>{$Role}</td>";
+        echo "<td>{$UserNo}</td>";
+        echo "<td>{$FName}</td>";
+        echo "<td>{$LName}</td>";
+        echo "<td>{$Username}</td>";
+        echo "<td>{$Email}</td>";
+        echo "<td>{$Role}</td>";
+        $UserNo ++;
       }
     
   }
