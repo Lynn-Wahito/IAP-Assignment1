@@ -35,7 +35,7 @@ include 'navigations/header.php';
                         //check if 'msg' parameter is set in the URL
                         if (isset($_GET['msg'])){
                             $msg = $_GET['msg'];
-                            echo '<P class="success-msg">' . htmlspecialchars($msg) . '</p>';
+                            echo '<P style="color: #333; font-size: 17px;">class="success-msg">' . htmlspecialchars($msg) . '</p>';
                         }
                         ?>
             <form action="src/RegProcesses/process_signup.php" method="post">

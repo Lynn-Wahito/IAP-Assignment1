@@ -11,18 +11,23 @@ session_start();
 
     if(mysqli_num_rows($result) > 0){
         $row = mysqli_fetch_array($result);
-        if($row['role'] == 'author'){
-            $_SESSION['user_id'] = $row['user_id'];
-            $_SESSION['role'] = $row['role'];
-            header('location:author/manage-articles.php');
-            exit;
+        if($row['is_confirmed'] == 1){
+            if($row['role'] == 'author'){
+                $_SESSION['user_id'] = $row['user_id'];
+                $_SESSION['role'] = $row['role'];
+                header('location:author/manage-articles.php');
+                exit;
 
-        }else if($row['role'] == 'user'){
-            $_SESSION['user_id'] = $row['user_id'];
-            $_SESSION['role'] = $row['role'];
-            header('location:vblog.php');
-            exit;
+            }else if($row['role'] == 'user'){
+                $_SESSION['user_id'] = $row['user_id'];
+                $_SESSION['role'] = $row['role'];
+                header('location:vblog.php');
+                exit;
+            }
+        }else{
+            $error[] = 'Your email has not been  confirmed. Please check your email and confirm your registration.';
         }
+        
     }else{
         $error[] = 'incorrect email or password';
     }

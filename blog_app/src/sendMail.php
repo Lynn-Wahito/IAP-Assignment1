@@ -32,13 +32,16 @@ class SignUpMail{
         
         $confirmationLink = "http://localhost/blog_app_org%20-Mailer/src/RegProcesses/confirm_email.php?token=$token" ;        
         $confirmationLink = htmlspecialchars($confirmationLink);
-        $this->mail->Body = "Hello $Fname,<br><br>";
+        //style the next 3 lines
+        $this->mail->Body = '<div style="font-family: Arial, sans-serif; font-size: 14px; color: #333;">';
+        $this->mail->Body .= "Hello $Fname,<br><br>";
         $this->mail->Body .= "Welcome to our website! Please click the following link to confirm your email address:<br>";
-        $this->mail->Body .= '<a href="' . $confirmationLink . '">Click here</a>';
-        
+        $this->mail->Body .= '<a href="' . $confirmationLink . '" style="color: #007bff; text-decoration: none; font-weight: bold;">Click here</a>';
+        $this->mail->Body .= '</div>';
+
 
         $pass = md5($password);
-
+        
         if($this->mail->send()){
             $msg = "Check your email to complete your registration.";
             // header('./RegProcesses/confirm_email.php');
@@ -53,8 +56,9 @@ class SignUpMail{
     }
 }
 
-if(isset($_POST["submit"])){
+if(isset($_POST["submit"]))
     $subject = "Account Set Up";
+    echo "<div style=\"text-align:centre; align-items:centre; justify-content:centre; \" > <h4>Account Set up <span style=\"font-size:17px; font-family: Arial, sans-serif;\">$subject</span></h4></div>";
 
     
     $signUpMail = new SignUpMail();
