@@ -1,36 +1,6 @@
-<?php
- require_once 'config/db_connection.php';
- include 'navigations/header.php';
 
-if($_SERVER["REQUEST_METHOD"]=='POST'){
-    $Fname = mysqli_real_escape_string($db_connect, $_POST['Fname']);
-    $Lname = mysqli_real_escape_string($db_connect, $_POST['Lname']);
-    $name = mysqli_real_escape_string($db_connect, $_POST['username']);
-    $email = mysqli_real_escape_string($db_connect, $_POST['email']);
-    $pass = md5($_POST['password']);
-    $cpass = md5($_POST['cpassword']);
-    $role = $_POST['role'];
-
-    $select = "SELECT * FROM users WHERE email = '$email' && password = '$pass'";
-
-    $result = mysqli_query($db_connect, $select);
-    $error = array();
-    if(mysqli_num_rows($result) > 0){
-
-        $error[] = 'user already exist!';
-    }
-    else{
-        if($pass != $cpass){
-            $error[] = 'password not matched!';
-        }
-        else{
-            $insert = "INSERT INTO users(Fname, Lname, username, email, password, role) VALUES ('$Fname', '$Lname', '$name', '$email', '$pass', '$role')";
-            mysqli_query($db_connect, $insert);
-            header('location:sign_in.php');
-        }
-    }
-
-};
+<?php 
+include 'navigations/header.php';
 ?>
 
 <!DOCTYPE html>
@@ -60,8 +30,16 @@ if($_SERVER["REQUEST_METHOD"]=='POST'){
                             }
                         }
                         ?>
-            
-                        <form  action="" method="post">
+
+                        <?php 
+                        //check if 'msg' parameter is set in the URL
+                        if (isset($_GET['msg'])){
+                            $msg = $_GET['msg'];
+                            echo '<P class="success-msg">' . htmlspecialchars($msg) . '</p>';
+                        }
+                        ?>
+            <form action="src/RegProcesses/process_signup.php" method="post">
+
                            <div class="form-group">
                                 <input type="text" name="Fname" required>
                                 <span></span>
